@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+                                  http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="OrderReport_v2"
+              pageWidth="595" pageHeight="842" columnWidth="515"
+              leftMargin="40" rightMargin="40" topMargin="20" bottomMargin="20">
+
+    <!-- Parameters -->
+    <parameter name="orderId" class="java.lang.Long"/>
+    <parameter name="orderStatus" class="java.lang.String"/>
+    <parameter name="customerId" class="java.lang.Long"/>
+    <parameter name="customerEmail" class="java.lang.String"/>
+    <parameter name="orderTotal" class="java.math.BigDecimal"/>
+    <parameter name="creationDate" class="java.lang.String"/>
+
+    <!-- Detail fields -->
+    <field name="subId" class="java.lang.Long"/>
+    <field name="nameCake" class="java.lang.String"/>
+    <field name="quantity" class="java.lang.Long"/>
+    <field name="total" class="java.math.BigDecimal"/>
+
+    <!-- HEADER -->
+    <title>
+        <band height="140">
+            <!-- Thank you title -->
+            <textField>
+                <reportElement x="0" y="0" width="515" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="16" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Thank you for your purchase " + $P{customerEmail}]]></textFieldExpression>
+            </textField>
+
+            <!-- Top red line -->
+            <line>
+                <reportElement x="0" y="28" width="515" height="1"/>
+                <graphicElement>
+                    <pen lineWidth="2.0" lineColor="#FF0000"/>
+                </graphicElement>
+            </line>
+
+            <!-- Invoice number -->
+            <textField>
+                <reportElement x="0" y="35" width="120" height="18"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Invoice Number:"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="130" y="35" width="385" height="18"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$P{orderId}]]></textFieldExpression>
+            </textField>
+
+            <!-- Status -->
+            <textField>
+                <reportElement x="0" y="55" width="120" height="18"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Status:"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="130" y="55" width="385" height="18"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$P{orderStatus}]]></textFieldExpression>
+            </textField>
+
+            <!-- Total -->
+            <textField>
+                <reportElement x="0" y="75" width="120" height="18"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Total:"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="130" y="75" width="385" height="18"/>
+                <textElement/>
+                <textFieldExpression><![CDATA["$" + String.format("%.2f",$P{orderTotal})]]></textFieldExpression>
+            </textField>
+
+            <!-- Creation date -->
+            <textField>
+                <reportElement x="0" y="95" width="120" height="18"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Creation Date:"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="130" y="95" width="385" height="18"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$P{creationDate}]]></textFieldExpression>
+            </textField>
+
+            <!-- Bottom red line -->
+            <line>
+                <reportElement x="0" y="115" width="515" height="1"/>
+                <graphicElement>
+                    <pen lineWidth="2.0" lineColor="#FF0000"/>
+                </graphicElement>
+            </line>
+        </band>
+    </title>
+
+    <!-- COLUMN HEADERS -->
+    <columnHeader>
+        <band height="25">
+            <staticText>
+                <reportElement x="0" y="0" width="50" height="25" backcolor="#E0E0E0" mode="Opaque"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[ID]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="50" y="0" width="200" height="25" backcolor="#E0E0E0" mode="Opaque"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Cake Name]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="250" y="0" width="80" height="25" backcolor="#E0E0E0" mode="Opaque"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Qty]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="330" y="0" width="80" height="25" backcolor="#E0E0E0" mode="Opaque"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Total]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <!-- DETAIL -->
+    <detail>
+        <band height="25">
+            <textField>
+                <reportElement x="0" y="0" width="50" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{subId}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="50" y="0" width="200" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{nameCake}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="250" y="0" width="80" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="#0.00">
+                <reportElement x="330" y="0" width="80" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+</jasperReport>
